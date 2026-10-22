@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Admin Dashboard</h1>
+        <p>Manage Employee Leave Requests</p>
+    </header>
+
+    <main class="container">
+
+        <section class="card">
+
+            <h2>All Leave Requests</h2>
+
+            {% if leaves %}
+
+            <div style="overflow-x: auto;">
+
+                <table width="100%" cellpadding="10">
+
+                    <tr>
+                        <th>Employee</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                    {% for leave in leaves %}
+
+                    <tr>
+
+                        <td>{{ leave.name }}</td>
+                        <td>{{ leave.email }}</td>
+                        <td>{{ leave.leave_type }}</td>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>{{ leave.reason }}</td>
+                        <td>{{ leave.status }}</td>
+
+                        <td>
+
+                            {% if leave.status == "Pending" %}
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'update_leave',
+                                    leave_id=leave.id
+                                ) }}"
+                            >
+
+                                <button
+                                    class="btn"
+                                    name="status"
+                                    value="Approved"
+                                >
+                                    Approve
+                                </button>
+
+                                <button
+                                    class="btn secondary"
+                                    name="status"
+                                    value="Rejected"
+                                >
+                                    Reject
+                                </button>
+
+                            </form>
+
+                            {% else %}
+
+                                No action needed
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+                <p>No leave requests have been submitted.</p>
+
+            {% endif %}
+
+        </section>
+
+        <p style="margin-top: 20px;">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </p>
+
+    </main>
+
+</body>
+</html>

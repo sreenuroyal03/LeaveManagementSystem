@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Employee Dashboard</h1>
+        <p>Welcome, {{ name }}!</p>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+
+            <h2>Apply for Leave</h2>
+
+            <form method="POST"
+                  action="{{ url_for('apply_leave') }}">
+
+                <label for="leave_type">Leave Type</label>
+
+                <select name="leave_type" id="leave_type" required>
+                    <option value="Casual">Casual Leave</option>
+                    <option value="Sick">Sick Leave</option>
+                    <option value="Earned">Earned Leave</option>
+                </select>
+
+                <label for="start_date">Start Date</label>
+                <input
+                    type="date"
+                    id="start_date"
+                    name="start_date"
+                    required
+                >
+
+                <label for="end_date">End Date</label>
+                <input
+                    type="date"
+                    id="end_date"
+                    name="end_date"
+                    required
+                >
+
+                <label for="reason">Reason</label>
+                <textarea
+                    id="reason"
+                    name="reason"
+                    rows="4"
+                    required
+                ></textarea>
+
+                <button type="submit" class="btn">
+                    Submit Leave Request
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="card" style="margin-top: 25px;">
+
+            <h2>My Leave History</h2>
+
+            {% if leaves %}
+
+            <div style="overflow-x: auto;">
+
+                <table width="100%" cellpadding="10">
+
+                    <tr>
+                        <th>Type</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Status</th>
+                    </tr>
+
+                    {% for leave in leaves %}
+
+                    <tr>
+                        <td>{{ leave.leave_type }}</td>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>{{ leave.status }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+                <p>You have not applied for leave yet.</p>
+
+            {% endif %}
+
+        </section>
+
+        <p style="margin-top: 20px;">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </p>
+
+    </main>
+
+</body>
+</html>

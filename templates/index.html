@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leave Management System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Leave Management System</h1>
+
+        <p>Smart and Simple Employee Leave Management</p>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h2>Welcome to Our System</h2>
+
+            <p>
+                Apply for leave, track your requests,
+                and manage employee leave applications
+                from one place.
+            </p>
+
+            <div class="buttons">
+                <a href="{{ url_for('login') }}" class="btn">
+                    Employee Login
+                </a>
+
+                <a href="{{ url_for('login') }}" class="btn secondary">
+                    Admin Login
+                </a>
+            </div>
+        </section>
+
+        <section class="features">
+
+            <div class="card">
+                <h3>Easy Application</h3>
+                <p>Submit leave requests online.</p>
+            </div>
+
+            <div class="card">
+                <h3>Track Status</h3>
+                <p>Check whether your leave is pending, approved, or rejected.</p>
+            </div>
+
+            <div class="card">
+                <h3>Admin Dashboard</h3>
+                <p>Review and manage employee leave requests.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Cloud-Based Leave Management System</p>
+    </footer>
+
+</body>
+</html>
